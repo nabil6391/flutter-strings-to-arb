@@ -193,8 +193,10 @@ class DartHardCodedStringFinder {
 
     var strings = <String>[];
 
-    result.forEach((e) {
-      var string = extractHardCodedString(e.group(0), e.input);
+    result
+        .where((e) => e.group(0) != null)
+        .forEach((e) {
+      var string = extractHardCodedString(e.group(0)!, e.input);
 
       var jsonParamAccessString = e.input.codeUnitAt(e.start-1) =='['.codeUnits.first && e.input.codeUnitAt(e.end) ==']'.codeUnits.first;
       var jsonParamSetString =  e.input.codeUnitAt(e.end) ==':'.codeUnits.first;
@@ -208,8 +210,10 @@ class DartHardCodedStringFinder {
 
     Iterable<RegExpMatch> result1 = regexDart.allMatches(content);
 
-    result1.forEach((e) {
-      var string = extractHardCodedString(e.group(0), e.input);
+    result1
+        .where((e) => e.group(0) != null)
+        .forEach((e) {
+      var string = extractHardCodedString(e.group(0)!, e.input);
 
       var jsonParamAccessString = e.input.codeUnitAt(e.start-1) =='['.codeUnits.first && e.input.codeUnitAt(e.end) ==']'.codeUnits.first;
       var jsonParamSetString =  e.input.codeUnitAt(e.end) ==':'.codeUnits.first;
